@@ -1,0 +1,47 @@
+#include <iostream>
+#include <unordered_map>
+#include <climits>
+#include <algorithm>
+using namespace std;
+
+void print_array_intersection(int *x , int *y , int n){
+    if(n == 0){
+        return;
+    }
+
+    sort(x , x + n);
+    unordered_map<int , int> freq;
+    for(int i = 0 ; i < n ; i++){
+        freq[y[i]]++;
+    }
+    int cnt = 0;
+    for(int i = 0 ; i < n ; i++){
+        if(freq.count(x[i]) and freq[x[i]] != 0){
+            if(cnt == 0){
+                cnt++;
+                cout<<"["<<x[i];
+            }
+            else{
+                cout<<", "<<x[i];
+            }
+            freq[x[i]]--;
+        }
+    }
+    cout<<"]"<<endl;
+}
+
+int main(){
+    int n;
+    cin>>n;
+    int *x , *y;
+    x = new int[n+10]();
+    y = new int[n+10]();
+    for(int i = 0 ; i < n ; i++){
+        cin>>x[i];
+    }
+    for(int i = 0 ; i < n ; i++){
+        cin>>y[i];
+    }
+    print_array_intersection(x , y , n);
+    return 0;
+}
